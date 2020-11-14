@@ -216,13 +216,34 @@ function love.draw()
         end
         
     elseif gameState == 'play' then
-        
-    elseif gameState == 'done' then
-        love.graphics.setFont(largeFont)
-        love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!',
-            0, 10, VIRTUAL_WIDTH, 'center')
         love.graphics.setFont(smallFont)
-        love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
+        if gameMode = 'pvp' then
+            love.graphics.printf('diff: '..difficulty..'     controls: '..controls, 0, 20, VIRTUAL_WIDTH, 'center')
+        end
+           
+    elseif gameState == 'done' then
+        if gameMode == 'pvp' then
+            love.graphics.setFont(largeFont)
+            love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!',
+            0, 10, VIRTUAL_WIDTH, 'center')
+            love.graphics.setFont(smallFont)
+            love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
+         
+         elseif gameMode == 'cvc' then
+            love.graphics.setFont(largeFont)
+            love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!',
+            0, 10, VIRTUAL_WIDTH, 'center')
+            love.graphics.setFont(smallFont)
+            love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
+         
+         elseif gameMode == 'pvc' then
+            love.graphics.setFont(largeFont)
+            love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!',
+            0, 10, VIRTUAL_WIDTH, 'center')
+            love.graphics.setFont(smallFont)
+            love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
+         end
+        
     end
 
     displayScore()
