@@ -203,9 +203,9 @@ function love.update(dt)
      check_width = 0
      if difficulty == 'easy' then
         check_width = VIRTUAL_WIDTH/4
-     elseif difficulty == 'hard' then
+     elseif difficulty == 'medium' then
         check_width = VIRTUAL_WIDTH/2
-     elseif difficulty == 'imp' then
+     elseif difficulty == 'hard' then
         check_width = VIRTUAL_WIDTH
      end
 
@@ -325,11 +325,11 @@ end
             gameState = 'menu_ctrl'
             sounds['score']:play()
         elseif key == '2' then
-            difficulty = 'hard'
+            difficulty = 'medium'
             gameState = 'menu_ctrl'
             sounds['score']:play()
         elseif key == '3' then
-            difficulty = 'imp'
+            difficulty = 'hard'
             gameState = 'menu_ctrl'
             sounds['score']:play()
         else 
