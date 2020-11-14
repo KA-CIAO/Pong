@@ -204,10 +204,15 @@ function love.draw()
             love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
             
          elseif gameMode == 'pvc' then
-            love.graphics.setFont(smallFont)
-            love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 
-            0, 10, VIRTUAL_WIDTH, 'center')
-            love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
+            if (serving player == 1) then
+              love.graphics.setFont(smallFont)
+              love.graphics.printf("Player's serve!", 0, 10, VIRTUAL_WIDTH, 'center')
+              love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
+            elseif (serving player == 2) then
+              love.graphics.setFont(smallFont)
+              love.graphics.printf("Computer's serve!", 0, 10, VIRTUAL_WIDTH, 'center')
+              love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
+            end
         end
         
     elseif gameState == 'play' then
