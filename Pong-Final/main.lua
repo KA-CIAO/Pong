@@ -18,10 +18,10 @@ function love.load()
 
     math.randomseed(os.time())
 
-    smallFont = love.graphics.newFont('Pixellari.ttf', 14)
-    fpsFont = love.graphics.newFont('Pixellari.ttf', 12)
-    largeFont = love.graphics.newFont('Pixellari.ttf', 16)
-    scoreFont = love.graphics.newFont('Pixellari.ttf', 32)
+    smallFont = love.graphics.newFont('Retron2000.ttf', 12)
+    fpsFont = love.graphics.newFont('Retron2000.ttf', 10)
+    largeFont = love.graphics.newFont('Retron2000.ttf', 14)
+    scoreFont = love.graphics.newFont('Retron2000.ttf', 32)
     love.graphics.setFont(smallFont)
 
     sounds = {
@@ -49,6 +49,10 @@ function love.load()
 
     winningPlayer = 0
 
+    gameMode = ''
+    difficulty = ''
+    controls = ''
+  
     gameState = 'start'
 end
 
@@ -193,10 +197,18 @@ function love.draw()
         love.graphics.printf('Press "Enter" to begin!', 0, 30, VIRTUAL_WIDTH, 'center')
         
     elseif gameState == 'serve' then
-        love.graphics.setFont(smallFont)
-        love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 
+        if gameMode == 'pvp' then
+            love.graphics.setFont(smallFont)
+            love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 
             0, 10, VIRTUAL_WIDTH, 'center')
-        love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
+            love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
+            
+         elseif gameMode == 'pvc' then
+            love.graphics.setFont(smallFont)
+            love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 
+            0, 10, VIRTUAL_WIDTH, 'center')
+            love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
+        end
         
     elseif gameState == 'play' then
         
