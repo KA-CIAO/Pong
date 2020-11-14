@@ -54,7 +54,7 @@ function love.load()
     difficulty = ''
     controls = ''
   
-    gameState = 'start'
+    gameState = 'menu_mode'
 end
 
 function love.resize(w, h)
@@ -62,13 +62,46 @@ function love.resize(w, h)
 end
 
 function love.update(dt)
+    
     if gameState == 'serve' then
-        ball.dy = math.random(-50, 50)
-        if servingPlayer == 1 then
+        if gameMode == 'pvp' then             
+            if servingPlayer == 1 then
+                ball.dx = math.random(140, 200)
+                ball.dy = math.random(-50, 50)
+             elseif servingPlayer == 2 then  
+                ball.dx = -math.random(140, 200)
+                ball.dy = math.random(-50, 50)
+            end 
+        end     
+               
+        if gameMode == 'cvc' then                   
+            if servingPlayer == 1 then
+                ball.dx = math.random(140, 200)
+                ball.dy = math.random(-50, 50)
+                gameState = 'play'
+             elseif servingPlayer == 2 then 
+                ball.dx = -math.random(140, 200)
+                ball.dy = math.random(-50, 50)
+                gameState = 'play'
+            end 
+        end 
+        
+        if servingPlayer == 1 and gameMode == 'pvc' then
             ball.dx = math.random(140, 200)
-        else
+            ball.dy = math.random(-50, 50)
+         elseif servingPlayer == 2 and gameMode == 'pvc' then 
             ball.dx = -math.random(140, 200)
+            ball.dy = math.random(-50, 50)
+            gameState = 'play'
+         elseif servingPlayer == 1 and gameMode == 'pvc'  then
+            ball.dx = math.random(140, 200)
+            ball.dy = math.random(-50, 50)
+            gameState = 'play'
+         elseif servingPlayer == 2 and gameMode == 'pvc' then 
+            ball.dx = -math.random(140, 200)
+            ball.dy = math.random(-50, 50)
         end
+        
     elseif gameState == 'play' then
 
         if ball:collides(player1) then
@@ -83,6 +116,7 @@ function love.update(dt)
 
             sounds['paddle_hit']:play()
         end
+        
         if ball:collides(player2) then
             ball.dx = -ball.dx * 1.03
             ball.x = player2.x - 4
@@ -137,22 +171,89 @@ function love.update(dt)
         end
     end
 
-    if love.keyboard.isDown('w') then
-        player1.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('s') then
-        player1.dy = PADDLE_SPEED
-    else
-        player1.dy = 0
+    if gameMode == 'pvp' then
+        if love.keyboard.isDown('w') then
+            player1.dy = -PADDLE_SPEED
+         elseif love.keyboard.isDown('s') then
+            player1.dy = PADDLE_SPEED
+        else
+            player1.dy = 0
+        end
+
+        if love.keyboard.isDown('up') then
+            player2.dy = -PADDLE_SPEED
+         elseif love.keyboard.isDown('down') then
+            player2.dy = PADDLE_SPEED
+        else
+            player2.dy = 0
+        end
+     end
+
+    if gameMode == 'pvc' then   
+        up_button = 'w'     
+        down_button = 's'
+     if controls == 'ws' then          
+        up_button = 'w'
+        down_button = 's'
+     elseif controls == 'ud' then
+        up_button = 'up'
+        down_button = 'down'
+     end
+
+     check_width = 0
+     if difficulty == 'easy' then
+        check_width = VIRTUAL_WIDTH/4
+     elseif difficulty == 'hard' then
+        check_width = VIRTUAL_WIDTH/2
+     elseif difficulty == 'imp' then
+        check_width = VIRTUAL_WIDTH
+     end
+
+
+     plr = player1         
+     plr_n = player2
+     if ((ball.x - plr_n.x)^2)^(0.5)  < check_width then 
+        if (plr_n.y > (ball.y + ball.height/2))  then            
+            plr_n.dy = -PADDLE_SPEED
+         elseif (plr_n.y + plr_n.height < (ball.y + ball.height/2))  then
+            plr_n.dy = PADDLE_SPEED
+         else
+            plr_n.dy = 0
+        end
+     end
+
+     if love.keyboard.isDown(up_button) then       
+        plr.dy = -PADDLE_SPEED
+      elseif love.keyboard.isDown(down_button) then
+        plr.dy = PADDLE_SPEED
+       else
+        plr.dy = 0
+      end
+    
     end
 
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
-    else
+    if gameMode == 'cvc' then
+     if ball.x < VIRTUAL_WIDTH/3 then 
+       if (player1.y > (ball.y + ball.height/2))  then
+          player1.dy = -PADDLE_SPEED
+       elseif (player1.y + player1.height < (ball.y + ball.height/2))  then
+          player1.dy = PADDLE_SPEED
+       else
+          player1.dy = 0
+       end
+     end
+  
+     if ball.x > 2 * VIRTUAL_WIDTH/3 then
+       if (player2.y > (ball.y + ball.height/2))  then
+         player2.dy = -PADDLE_SPEED
+         elseif (player2.y + player2.height < (ball.y + ball.height/2))  then
+         player2.dy = PADDLE_SPEED
+         else
         player2.dy = 0
+        end
+     end
     end
-
+    
     if gameState == 'play' then
         ball:update(dt)
     end
