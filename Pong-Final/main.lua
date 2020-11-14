@@ -185,18 +185,21 @@ end
 function love.draw()
     push:start()
 
-    love.graphics.clear(40/255, 45/255, 52/255, 1)
+    love.graphics.clear(43/255, 27/255, 23/255, 1)
     
     if gameState == 'start' then
         love.graphics.setFont(smallFont)
-        love.graphics.printf('Welcome to Pong!', 0, 10, VIRTUAL_WIDTH, 'center')
-        love.graphics.printf('Press Enter to begin!', 0, 20, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('WELCOME TO PONG!', 0, 15, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Press "Enter" to begin!', 0, 30, VIRTUAL_WIDTH, 'center')
+        
     elseif gameState == 'serve' then
         love.graphics.setFont(smallFont)
         love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 
             0, 10, VIRTUAL_WIDTH, 'center')
-        love.graphics.printf('Press Enter to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
+        
     elseif gameState == 'play' then
+        
     elseif gameState == 'done' then
         love.graphics.setFont(largeFont)
         love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!',
@@ -227,6 +230,6 @@ end
 function displayFPS()
     love.graphics.setFont(fpsFont)
     love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
+    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 5, 5)
     love.graphics.setColor(255, 255, 255, 255)
 end
