@@ -16,6 +16,22 @@ function Paddle:update(dt)
     end
 end
 
+function Paddle:reset1()
+    self.x = 15
+    self.y = 30
+    self.width = 4 
+    seld.height = 30
+    self.dy = 0
+end
+
+function Paddle:reset1()
+    self.x = VIRTUAL_WIDTH - 15
+    self.y = VIRTUAL_HEIGHT - 30
+    self.width = 4 
+    seld.height = 30
+    self.dy = 0
+end
+
 function Paddle:render()
     love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
 end
