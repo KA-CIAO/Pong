@@ -373,11 +373,11 @@ function love.draw()
             love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
             
          elseif gameMode == 'pvc' then
-            if (serving player == 1) then
+            if (servingPlayer == 1) then
               love.graphics.setFont(smallFont)
               love.graphics.printf("Player's serve!", 0, 10, VIRTUAL_WIDTH, 'center')
               love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
-            elseif (serving player == 2) then
+            elseif (servingPlayer == 2) then
               love.graphics.setFont(smallFont)
               love.graphics.printf("Computer's serve!", 0, 10, VIRTUAL_WIDTH, 'center')
               love.graphics.printf('Press "Enter" to serve!', 0, 30, VIRTUAL_WIDTH, 'center')
@@ -386,7 +386,7 @@ function love.draw()
         
     elseif gameState == 'play' then
         love.graphics.setFont(smallFont)
-        if gameMode = 'pvp' then
+        if gameMode == 'pvp' then
             love.graphics.printf('diff: '..difficulty..'     controls: '..controls, 0, 20, VIRTUAL_WIDTH, 'center')
         end
            
