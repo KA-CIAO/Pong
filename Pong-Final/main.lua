@@ -386,11 +386,12 @@ function love.draw()
         
     elseif gameState == 'play' then
         love.graphics.setFont(smallFont)
-        if gameMode == 'pvp' then
+        if gameMode == 'pvc' then
             love.graphics.printf('diff: '..difficulty..'     controls: '..controls, 0, 20, VIRTUAL_WIDTH, 'center')
         end
            
     elseif gameState == 'done' then
+        
         if gameMode == 'pvp' then
             love.graphics.setFont(largeFont)
             love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!',
