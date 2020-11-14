@@ -163,30 +163,97 @@ end
 
 function love.keypressed(key)
     if key == 'escape' then
-        love.event.quit()
-    elseif key == 'enter' or key == 'return' then
-        if gameState == 'start' then
-            gameState = 'serve'
-        elseif gameState == 'serve' then
-            gameState = 'play'
-        elseif gameState == 'done' then
-
-            gameState = 'serve'
-
-            ball:reset()
-
-            player1Score = 0
-            player2Score = 0
-
-            if winningPlayer == 1 then
-                servingPlayer = 2
-            else
-                servingPlayer = 1
-            end
+        if gameState ~= 'menu_mode' then
+         gameState = 'menu_mode'
+         ball:reset()
+         player1Score = 0
+         player2Score = 0
+         player1:reset1()
+         player2:reset2()
+        else
+         love.event.quit()
         end
+        
+    elseif key == 'enter' or key == 'return' then
+        
+        if  (gameMode == 'cvc') or (gameMode == 'pvp') or (gameMode == 'pvc' and ((servingPlayer == 1) or (servingPlayer == 2))) then
+            if gameState == 'start' then
+                gameState = 'serve'
+             elseif gameState == 'serve' then
+                gameState = 'play'
+             elseif gameState == 'done' then
+                gameState = 'serve'
+
+                ball:reset()
+
+                player1Score = 0
+                player2Score = 0
+
+                if winningPlayer == 1 then
+                    servingPlayer = 2
+                else
+                    servingPlayer = 1
+                end
+            end
+            
+        elseif  (gameMode == 'pvc') and ((servingPlayer == 2) or (servingPlayer == 1)) then
+            if gameState == 'start' then
+                gameState = 'serve'    
+             end
+        end    
+end
+
+    if gameState == 'menu_mode' then
+        if key == '1'  then
+            gameMode = 'pvp'
+            gameState = 'start'
+         elseif key == '2' then
+            gameMode = 'pvc'
+            gameState = 'menu_diff'
+            sounds['score']:play()
+        elseif key == '3' then
+            gameMode = 'cvc'
+            gameState = 'start'
+
+        end
+    
+    
+     elseif gameState == 'menu_diff' then 
+        if key == '1'  then
+            difficulty = 'easy'
+            gameState = 'menu_ctrl'
+            sounds['score']:play()
+        elseif key == '2' then
+            difficulty = 'hard'
+            gameState = 'menu_ctrl'
+            sounds['score']:play()
+        elseif key == '3' then
+            difficulty = 'imp'
+            gameState = 'menu_ctrl'
+            sounds['score']:play()
+        else 
+            sounds['score']:play()
+        end
+        
+     elseif gameState == 'menu_ctrl' then
+        
+        if key == '1' then 
+            controls = 'ws'
+            gameState = 'start'
+            sounds['score']:play()
+        elseif key == '2' then
+            controls = 'ud'
+            gameState = 'start'
+            sounds['score']:play()
+        else 
+            sounds['score']:play()
+        end        
+        
+
     end
 end
 
+    
 function love.draw()
     push:start()
 
