@@ -9,7 +9,7 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
 
-PADDLE_SPEED = 250
+PADDLE_SPEED = 200
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -18,11 +18,11 @@ function love.load()
 
     math.randomseed(os.time())
 
-    smallFont = love.graphics.newFont('Retron2000.ttf', 13)
-    fpsFont = love.graphics.newFont('Retron2000.ttf', 14)
-    largeFont = love.graphics.newFont('Retron2000.ttf', 15)
-    scoreFont = love.graphics.newFont('Retron2000.ttf', 33)
-    escFont = love.graphics.newFont('Retron2000.ttf', 10)
+    smallFont = love.graphics.newFont('Retron2000.ttf', 12)
+    fpsFont = love.graphics.newFont('Retron2000.ttf', 10)
+    largeFont = love.graphics.newFont('Retron2000.ttf', 14)
+    scoreFont = love.graphics.newFont('Retron2000.ttf', 32)
+    escFont = love.graphics.newFont('Retron2000.ttf', 9)
     love.graphics.setFont(smallFont)
 
     sounds = {
@@ -66,52 +66,52 @@ function love.update(dt)
     if gameState == 'serve' then
         if gameMode == 'pvp' then             
             if servingPlayer == 1 then
-                ball.dx = math.random(150, 200)
+                ball.dx = math.random(140, 200)
                 ball.dy = math.random(-50, 50)
              elseif servingPlayer == 2 then  
-                ball.dx = -math.random(150, 200)
+                ball.dx = -math.random(140, 200)
                 ball.dy = math.random(-50, 50)
             end 
         end     
                
         if gameMode == 'cvc' then                   
             if servingPlayer == 1 then
-                ball.dx = math.random(150, 200)
+                ball.dx = math.random(140, 200)
                 ball.dy = math.random(-50, 50)
                 gameState = 'play'
              elseif servingPlayer == 2 then 
-                ball.dx = -math.random(150, 200)
+                ball.dx = -math.random(140, 200)
                 ball.dy = math.random(-50, 50)
                 gameState = 'play'
             end 
         end 
         
         if servingPlayer == 1 and gameMode == 'pvc' then
-            ball.dx = math.random(150, 200)
+            ball.dx = math.random(140, 200)
             ball.dy = math.random(-50, 50)
          elseif servingPlayer == 2 and gameMode == 'pvc' then 
-            ball.dx = -math.random(150, 200)
+            ball.dx = -math.random(140, 200)
             ball.dy = math.random(-50, 50)
             gameState = 'play'
          elseif servingPlayer == 1 and gameMode == 'pvc'  then
-            ball.dx = math.random(150, 200)
+            ball.dx = math.random(140, 200)
             ball.dy = math.random(-50, 50)
             gameState = 'play'
          elseif servingPlayer == 2 and gameMode == 'pvc' then 
-            ball.dx = -math.random(150, 200)
+            ball.dx = -math.random(140, 200)
             ball.dy = math.random(-50, 50)
         end
         
     elseif gameState == 'play' then
 
         if ball:collides(player1) then
-            ball.dx = -ball.dx * 1.04
-            ball.x = player1.x + 6
+            ball.dx = -ball.dx * 1.03
+            ball.x = player1.x + 5
 
             if ball.dy < 0 then
-                ball.dy = -math.random(10, 160)
+                ball.dy = -math.random(10, 150)
             else
-                ball.dy = math.random(10, 160)
+                ball.dy = math.random(10, 150)
             end
 
             sounds['paddle_hit']:play()
@@ -122,9 +122,9 @@ function love.update(dt)
             ball.x = player2.x - 4
 
             if ball.dy < 0 then
-                ball.dy = -math.random(10, 160)
+                ball.dy = -math.random(10, 150)
             else
-                ball.dy = math.random(10, 160)
+                ball.dy = math.random(10, 150)
             end
 
             sounds['paddle_hit']:play()
@@ -190,14 +190,14 @@ function love.update(dt)
      end
 
     if gameMode == 'pvc' then   
-        up_key = 'w'     
-        down_key = 's'
+        up_button = 'w'     
+        down_button = 's'
      if controls == 'ws' then          
-        up_key = 'w'
-        down_key = 's'
+        up_button = 'w'
+        down_button = 's'
      elseif controls == 'ud' then
-        up_key = 'up'
-        down_key = 'down'
+        up_button = 'up'
+        down_button = 'down'
      end
 
      check_width = 0
@@ -222,9 +222,9 @@ function love.update(dt)
         end
      end
 
-     if love.keyboard.isDown(up_key) then       
+     if love.keyboard.isDown(up_button) then       
         plr.dy = -PADDLE_SPEED
-      elseif love.keyboard.isDown(down_key) then
+      elseif love.keyboard.isDown(down_button) then
         plr.dy = PADDLE_SPEED
        else
         plr.dy = 0
