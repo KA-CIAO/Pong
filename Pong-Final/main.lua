@@ -9,7 +9,7 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
 
-PADDLE_SPEED = 200
+PADDLE_SPEED = 250
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -18,11 +18,11 @@ function love.load()
 
     math.randomseed(os.time())
 
-    smallFont = love.graphics.newFont('Retron2000.ttf', 12)
-    fpsFont = love.graphics.newFont('Retron2000.ttf', 10)
-    largeFont = love.graphics.newFont('Retron2000.ttf', 14)
-    scoreFont = love.graphics.newFont('Retron2000.ttf', 32)
-    escFont = love.graphics.newFont('Retron2000.ttf', 9)
+    smallFont = love.graphics.newFont('Retron2000.ttf', 13)
+    fpsFont = love.graphics.newFont('Retron2000.ttf', 11)
+    largeFont = love.graphics.newFont('Retron2000.ttf', 15)
+    scoreFont = love.graphics.newFont('Retron2000.ttf', 33)
+    escFont = love.graphics.newFont('Retron2000.ttf', 10)
     love.graphics.setFont(smallFont)
 
     sounds = {
@@ -39,7 +39,7 @@ function love.load()
     })
 
 
-    player1 = Paddle(15, 30, 4, 30)
+    player1 = Paddle(16, 31, 5, 31)
     player2 = Paddle(VIRTUAL_WIDTH - 15, VIRTUAL_HEIGHT - 50, 4, 30)   
     ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
 
